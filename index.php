@@ -11,29 +11,23 @@
 <body>
     <div id="boxDialogue"></div>
     <form method="POST" action="process/process-mess.php">
-        <input type="text" id="message" name="message"/>
+        <input type="text" id="pseudo" name="pseudo" placeholder="Message"/>
+        <input type="text" id="message" name="message" placeholder="Pseudo"/>
         <button id="btnMessage">Envoie</button>
-    </form>
-    <form method="POST" action="process/process-connect.php">
-        <input type="text" name="pseudo"/>
-        <button id="btnConnect">Connect</button>
     </form>
 
 
 <script>
     
     let btnMessage = document.querySelector('#btnMessage');
-    let btnConnect = document.querySelector('#btnConnect');
 
     btnMessage.addEventListener('click', function(e) {
-        e.preventDefault();
-    })
-    btnConnect.addEventListener('click', function(e){
         e.preventDefault();
     })
     
     btnMessage.addEventListener('click', function(callback){
         let intext = document.querySelector('#message').value;
+        let pseudo = document.querySelector('#pseudo').value;
         let xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
             if (this.readyState === XMLHttpRequest.DONE) {
@@ -46,7 +40,7 @@
         }
         xhr.open('POST', 'process/process-mess.php', true);
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        xhr.send('message='+ intext);
+        xhr.send('message='+intext+'&pseudo='+pseudo);
         
     })
 </script>
