@@ -11,8 +11,8 @@
 <body>
     <div id="boxDialogue"></div>
     <form method="POST" action="process/process-mess.php">
-        <input type="text" id="pseudo" name="pseudo" placeholder="Message"/>
-        <input type="text" id="message" name="message" placeholder="Pseudo"/>
+        <input type="text" id="pseudo" name="pseudo" placeholder="Pseudo"/>
+        <input type="text" id="message" name="message" placeholder="Message"/>
         <button id="btnMessage">Envoie</button>
     </form>
 
