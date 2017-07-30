@@ -25,7 +25,7 @@
         e.preventDefault();
     })
     
-    btnMessage.addEventListener('click', function(callback){
+    btnMessage.addEventListener('click', function(){
         let intext = document.querySelector('#message').value;
         let pseudo = document.querySelector('#pseudo').value;
         let xhr = new XMLHttpRequest();
