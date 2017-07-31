@@ -15,8 +15,6 @@
         <input type="text" id="message" name="message" placeholder="Message"/>
         <button id="btnMessage">Envoie</button>
     </form>
-
-
 <script>
     
     let btnMessage = document.querySelector('#btnMessage');
@@ -29,6 +27,7 @@
         let intext = document.querySelector('#message').value;
         let pseudo = document.querySelector('#pseudo').value;
         let xhr = new XMLHttpRequest();
+
         xhr.onreadystatechange = function() {
             if (this.readyState === XMLHttpRequest.DONE) {
                 if (this.status === 200) {
@@ -38,11 +37,30 @@
                 }
             }
         }
+
         xhr.open('POST', 'process/process-mess.php', true);
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        xhr.send('message='+intext+'&pseudo='+pseudo);
-        
-    })
+        xhr.send('message='+intext+'&pseudo='+pseudo);  
+    });
+    
+    function request() {
+    let xhr  = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE) {    
+            if(xhr.status === 200){
+                let messdb = JSON.parse(this.response);
+                for(message in messdb){
+                    console.log(message);
+                }
+            }else {
+                console.log("Reponse de l'erreur", this.status);
+            }
+        }
+    }
+    xhr.open("POST","process/seek-mess.php", true);
+    xhr.send();
+    }
+    request();
 </script>
 
 </body>
