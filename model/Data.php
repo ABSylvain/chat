@@ -11,7 +11,7 @@ class Data{
     public function messageToSQL($message, $pseudo, $date) {
         try{
             $query = $this->db->prepare('INSERT INTO message (message, pseudo, instant)
-                                VALUES (:message, :pseudo, :instant)');
+                                                    VALUES (:message, :pseudo, :instant)');
             $query->bindParam(':message', $message);
             $query->bindParam(':pseudo', $pseudo);
             $query->bindParam(':instant', $date);

@@ -93,6 +93,7 @@
         // ... on parametre notre requette ...
         xhr.onreadystatechange = function() {
             // ... si elle est faite ...
+            console.log(xhr.readySate);
             if (xhr.readyState === XMLHttpRequest.DONE) {
                 // ... si tout es bon ...
                 if(xhr.status === 200){
@@ -136,8 +137,7 @@
         // ... on prepare ... 
         xhr.open("POST","process/seek-mess.php", true);
         // ... on envoi sans argument...
-        xhr.send();
-        // et tous, sa toute les 0.5s.
+        xhr.send();// et tous, sa toute les 0.5s.
     }, 0500);
 </script>
 
