@@ -23,10 +23,25 @@ class Data{
 
     public function messageFromSQL() {
         try{
+            // NE PAS OUBLIER D'INSTANCIER VOTRE PDO, LA MIENNE EST FAITE AU MOMENT D'INTANCE DE DATA
+            // on prepare notre requete sql 
+            // le resultat du prepare est un objet contenant votre string mais aussi d'autre choses
+            // dont des function, donc $query est un objet
             $query = $this->db->prepare('SELECT * FROM message');
+            // on appel execute() de l'objet en question
+            // puis execute transforme query en la reponce de sql
             $query->execute();
-            $tabs = $query->fetchAll();
-            return json_encode($tabs);
+            // ici si tout vas bien au niveau de notre PDO et notre prepare
+            // on ressoit un tableau, donc query = tableau
+
+            // on vas utiliser fetchAll() pour placer chaque ligne du tableau sql 
+            // dans des tableau differents
+            // pour que chaque clé = value (columnMessage = message)
+            // et non clé = value.value.value.value.ect (columnMessage = messageA.messageB.message3.ect)
+            // puis tous ces tableau dans un meme tableau
+            $tableauDeTableau = $query->fetchAll();
+            // on encode tableauDeTableau en json et on le ressort avec le 'return'
+            return json_encode($tableauDeTableau);
         }catch(Exeption $exeption){
             echo $exeption->getMessage();
         } 
