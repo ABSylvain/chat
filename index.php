@@ -61,6 +61,7 @@
         // ... on place le contenu des inputs dans des variables, ...
         let intext = document.querySelector('#message').value;
         let pseudo = document.querySelector('#pseudo').value;
+        let xhr = new XMLHttpRequest();
         // ... on verifie si elles ont quelques choses, ...
         if (typeof(intext)!='undefined' && typeof(pseudo)!='undefined') {
             // ... ici on fabrique notre message d'erreur si besoin, ...
@@ -88,37 +89,62 @@
             alert('Remplisser les champs');
         }
     });
-    // ici on vas mettre a jour le chat de foncer repeter
+   ////////////////////////////////  ici on vas mettre a jour le chat avec les message de la base de donné
+   // on place notre requette dans un setInterval pour lui demander de l'appliquer tout les tant de temps.
     setInterval(function request() {
-        // ... on parametre notre requette ...
+        // on instancie notre XmlHttpRequest (ajax)
+        xhr = new XMLHttpRequest();
+
+
+        // ... on declare des instructions pour notre requette
+        // ... à un certain moment de celle-ci
         xhr.onreadystatechange = function() {
-            // ... si elle est faite ...
-            console.log(xhr.readySate);
+            // ... on verifie si elle est faite, .DONE étant la dernière étape ...
             if (xhr.readyState === XMLHttpRequest.DONE) {
-                // ... si tout es bon ...
+                // ... on verifie l'état de cette request, 200 = tout est ok ...
                 if(xhr.status === 200){
-                    // ... alors on decode le fichier renvoyer par php préalablement jsoné ...
-                    let messdb = JSON.parse(this.response);
-                    // ... ici on verifie si la div est vide ...
-                    if(div.innerHTML === ""){
-                        // ... place la longueur du tab de coté ...
-                        ancienMax = messdb.length;
-                        // ... pour chaque element du tab on l'affiche
-                        for(let i =0; i < messdb.length; i++){
+                    // ... on sait que l'on vas envoyer notre requette vers le fichier PHP 
+                    // ... cibler par le xhr.open (plus bas)qui lui, nous ressort un fichier JSON ...
+                    // ... le resultat de notre requette se trouve dans 'response'(mot prédéfini)
+                    let tableauMess = JSON.parse(xhr.response);
+                    
+                    
+                    // Ce qu'il y a dans 'tableauMess' :
+                    // les infos que l'on cherche se trouve dans un tableau, 
+                    // dans sql. ->(key = column - value = ligne )
+                    // puis pour tout envoyer en meme temps, sql place chaque
+                    // tableau dans un tableau, et envoie ce dernier.
+
+
+                    // ... ici on verifie si la div d'affichage est vide 
+                    if(div.innerHTML === "") {
+                        // ... je prend la longueur du tableau ressorti du JSON, ...
+                        // ... donc tous nos messages pour le mettre dans une variable
+                        // ... qui va nous servir dans le else ...
+                        ancienMax = tableauMess.length;
+                        // ... ici on boucle sur chaque element du tableau ...
+                        for(let i =0; i < ancienMax; i++){
                             // ... tous sa c'est de l'aff ...
                             let h4 = document.createElement('h4');
                             let p = document.createElement('p');
                             h4 = div.appendChild(h4);
                             p = div.appendChild(p);
-                            h4.innerHTML = messdb[i][1];
-                            p.innerHTML = messdb[i][0];
+                            // ici messdb[i = 1,2,3,ect] pour chaque iteration du for,
+                            // donc -> message1 -> message2 -> ect 
+                            // et le 2em crochet cible notre column de notre tableau.
+                            h4.textContent = messdb[i][1];
+                            p.textContent = messdb[i][0];
+                            
+
                         
                         }
-                        // ... ducoup si la div n'est pas vide ...
+                        // (garder en tete que ce script s'execute à chaque interval apres la charge de la page)
+                        // ... ducoup si la div n'est pas vide, c'est qu'il y a deja des messages dedans.
+                        //  Nous, on veut afficher uniquement le nouveau message
+                        // Pour sa on recupere l'ancienne valeur de la longueur de notre tableau
+                        // defini dans le precedent interval
                     }else{
-                        // ... on place la longueur du tab qu'on vien d'avoir ...
-                        // (garder en tete que ce script s'execute a chaque interval apres la charge de la page)
-                        for(let i = ancienMax; i < messdb.length; i++){
+                            for(let i = ancienMax; i < tableauMess.length; i++){
                             let h4 = document.createElement('h4');
                             let p = document.createElement('p');
                             h4 = div.appendChild(h4);
@@ -129,15 +155,17 @@
                             ancienMax = messdb.length;
                         } 
                     }
-                }else{
-                    console.log("Reponse de l'erreur", this.status);
                 }
             }
         }
-        // ... on prepare ... 
+        // ... on prepare notre requette avec :
+        // une methode, un chemin/fichier, et sa maniere (true = async / false = sync)
+        // (async = envoi sans reset la page / sync = changement de page) ... 
         xhr.open("POST","process/seek-mess.php", true);
-        // ... on envoi sans argument...
-        xhr.send();// et tous, sa toute les 0.5s.
+        // ... on envoi sans argument car on as pas besoin de transmettre 
+        // des infos a php, c'est l'inverse dans ce cas...
+        xhr.send();
+    // et tous, sa toute les 0.5s.
     }, 0500);
 </script>
 

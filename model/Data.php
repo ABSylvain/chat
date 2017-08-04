@@ -25,8 +25,8 @@ class Data{
         try{
             $query = $this->db->prepare('SELECT * FROM message');
             $query->execute();
-            $obj = $query->fetchAll();
-            return json_encode($obj);
+            $tabs = $query->fetchAll();
+            return json_encode($tabs);
         }catch(Exeption $exeption){
             echo $exeption->getMessage();
         } 
