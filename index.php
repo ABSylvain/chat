@@ -14,7 +14,6 @@
     <div id="boxDialogue"></div>
     <!--  -->
     <form method="POST" action="process/process-mess.php">
-        <input type="text" id="pseudo" name="pseudo" placeholder="Pseudo"/>
         <input type="text" id="message" name="message" placeholder="Message"/>
         <button class="btn btn-lg btn-primary" id="btnMessage">Envoie</button>
     </form>
@@ -22,6 +21,7 @@
         <h3></h3>
         <button class="btn btn-lg btn-primary"id="btnNumMess">Combien de message ?</button>
     </aside>
+<script src="model/Bob.js"></script>
 <script>
     // Déclaration des variables qui vont être utilisées.
     let btnNumMess = document.querySelector('#btnNumMess');
@@ -31,12 +31,15 @@
     let h3 = document.querySelector('h3');
     let xhr;
     let ancienMax;
-    // Au chargement de la page on lance la function xhrInst ...
-    window.onload = xhrInst;
-    // ... que voici.
-    function xhrInst() {
-        xhr = new XMLHttpRequest();
-    };
+    let tabSession;
+    let pseudo;
+    function getPseudo(){
+        pseudo = prompt('Entrez un pseudo');
+        if(pseudo === ""){
+            getPseudo();
+        }
+    }
+    getPseudo();
     // On retire les parametres par default des button.
     btnMessage.addEventListener('click', function(e) {
         e.preventDefault();
@@ -46,6 +49,7 @@
     });
     // Pour afficher le nombre de message
     btnNumMess.addEventListener('click', function(){
+        let xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
             if (this.readyState === XMLHttpRequest.DONE) {
                 if (this.status === 200) {
@@ -63,7 +67,6 @@
     btnMessage.addEventListener('click', function(){
         // ... on place le contenu des inputs dans des variables, ...
         let intext = document.querySelector('#message').value;
-        let pseudo = document.querySelector('#pseudo').value;
         let xhr = new XMLHttpRequest();
         // ... on verifie si elles ont quelques choses, ...
         if (typeof(intext)!='undefined' && typeof(pseudo)!='undefined') {
@@ -172,6 +175,8 @@
         xhr.send();
     // et tous, sa toute les 0.5s.
     }, 0500);
+
+    let result = sendAjax("process/session.php", "pseudo="+pseudo);
 </script>
 
 </body>
