@@ -16,11 +16,11 @@
     <form method="POST" action="process/process-mess.php">
         <input type="text" id="pseudo" name="pseudo" placeholder="Pseudo"/>
         <input type="text" id="message" name="message" placeholder="Message"/>
-        <button id="btnMessage">Envoie</button>
+        <button class="btn btn-lg btn-primary" id="btnMessage">Envoie</button>
     </form>
     <aside id="part">
         <h3></h3>
-        <button id="btnNumMess">Combien de message ?</button>
+        <button class="btn btn-lg btn-primary"id="btnNumMess">Combien de message ?</button>
     </aside>
 <script>
     // Déclaration des variables qui vont être utilisées.
