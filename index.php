@@ -132,8 +132,8 @@
                             // ici messdb[i = 1,2,3,ect] pour chaque iteration du for,
                             // donc -> message1 -> message2 -> ect 
                             // et le 2em crochet cible notre column de notre tableau.
-                            h4.textContent = messdb[i][1];
-                            p.textContent = messdb[i][0];
+                            h4.textContent = tableauMess[i][1];
+                            p.textContent = tableauMess[i][0];
                             
 
                         
@@ -149,10 +149,10 @@
                             let p = document.createElement('p');
                             h4 = div.appendChild(h4);
                             p = div.appendChild(p);
-                            h4.innerHTML = messdb[i][1];
-                            p.innerHTML = messdb[i][0];
+                            h4.innerHTML = tableauMess[i][1];
+                            p.innerHTML = tableauMess[i][0];
                             // on remplace l'ancienne value de ancienMax pour la prochaine boucle
-                            ancienMax = messdb.length;
+                            ancienMax = tableauMess.length;
                         } 
                     }
                 }
