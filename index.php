@@ -48,7 +48,8 @@
             if (this.readyState === XMLHttpRequest.DONE) {
                 if (this.status === 200) {
                     let messdb = JSON.parse(this.response);
-                    h3.innerHTML = messdb[0][0];   
+                    console.log(messdb);
+                    h3.innerHTML = messdb[0];   
                 }
             }        
         }
