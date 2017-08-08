@@ -21,7 +21,6 @@
         <h3></h3>
         <button class="btn btn-lg btn-primary"id="btnNumMess">Combien de message ?</button>
     </aside>
-<script src="model/Bob.js"></script>
 <script>
     // Déclaration des variables qui vont être utilisées.
     let btnNumMess = document.querySelector('#btnNumMess');
@@ -29,10 +28,26 @@
     let div = document.querySelector('#boxDialogue');
     let aside = document.querySelector('#part');
     let h3 = document.querySelector('h3');
+    let input = document.querySelector('#message');
     let xhr;
     let ancienMax;
     let tabSession;
     let pseudo;
+     //////////////////////Requete pour voir si session exist
+    function request() {
+        xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if(xhr.readyState === XMLHttpRequest.DONE){
+                if(xhr.status === 200){
+                    console.log(xhr.response);
+                }
+            }
+        }
+        xhr.open("POST","process/session.php", true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.send('pseudo='+pseudo);
+    };
+    //////////////////// Recup pseudo
     function getPseudo(){
         pseudo = prompt('Entrez un pseudo');
         if(pseudo === ""){
@@ -40,6 +55,7 @@
         }
     }
     getPseudo();
+    request();
     // On retire les parametres par default des button.
     btnMessage.addEventListener('click', function(e) {
         e.preventDefault();
@@ -94,6 +110,7 @@
             // si les champs étais vide.
             alert('Remplisser les champs');
         }
+        vider();
     });
    ////////////////////////////////  ici on vas mettre a jour le chat avec les message de la base de donné
    // on place notre requette dans un setInterval pour lui demander de l'appliquer tout les tant de temps.
@@ -175,8 +192,10 @@
         xhr.send();
     // et tous, sa toute les 0.5s.
     }, 0500);
-
-    let result = sendAjax("process/session.php", "pseudo="+pseudo);
+    /////////////////////////
+    function vider(){
+        input.value = '';
+    }
 </script>
 
 </body>

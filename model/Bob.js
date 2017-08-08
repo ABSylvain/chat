@@ -18,14 +18,12 @@ function xhrInit(xhr) {
 function sendAjax(filePhp, stringSend) {
     let xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function() {
-        if (this.readyState === XMLHttpRequest.LOADING) {
-            if (this.readyState === XMLHttpRequest.DONE) {
-                if (this.status === 200) {
-                    console.log(this.response);
+        if (this.readyState === XMLHttpRequest.DONE) {
+            if (this.status === 200) {
+                console.log(this.response);
 
-                }
-            } else { console.log('') }
-        } else { console.log('(Etape 3 = LOADING'); }
+            }
+        } else { console.log('') }
     }
     xhr.open("POST", filePhp, true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); //PHP///* header("Content-Type: text/plain"); */ 

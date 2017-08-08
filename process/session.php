@@ -1,17 +1,21 @@
 <?php 
-include_once '../Bob.php';
+include_once '../model/Bob.php';
+include_once '../model/Data.php';
+session_start();
 $bob = new Bob();
-$pseudo = htmlspecialchars($_POST['pseudo']);
-$bob->whatThat($pseudo);
-if(isset($_SESSION['user'])){
-    session_start();
-    $_SESSION['user'] = $pseudo;
-}else{
-    echo '';
+$data = new Data();
+$pseudo = $_get['pseudo'];
+echo $pseudo;
+$json = $data->verifPseudo($pseudo);
+$json = json_decode($json);
+
+foreach($json as $tab){
+    foreach($tab as $value){
+        if(preg_match('#'.$value.'#i', $pseudo)){
+            $_SESSION['user'] = $pseudo;
+            echo 'connecter';
+        }
+    }
 }
-
-
-
-
 
 ?>

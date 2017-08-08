@@ -1,6 +1,6 @@
 <?php 
 class Bob{
-
+ 
 ///////////////// VERIF CONTENU D'UNE VARIABLE /////////////////
 function whatThat($yourVar){
     if(isset($yourVar)){
@@ -41,7 +41,7 @@ function whatThat($yourVar){
 }
 
 /////////////////// Afficher un tableau ////////////////
-function diplayArray($array){
+function displayArray($array){
     echo '<pre>';
     var_dump($array);
     echo'</pre>';

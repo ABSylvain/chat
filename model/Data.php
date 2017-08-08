@@ -58,5 +58,16 @@ class Data{
             echo $exeption->getMessage();
         } 
     }
+    public function verifPseudo($pseudo) {
+        try{
+            $query = $this->db->prepare("SELECT * FROM message WHERE pseudo=:pseudo");
+            $query->bindParam(':pseudo', $pseudo);
+            $query->execute();
+            $tab = $query->fetchAll();
+            return json_encode($tab);
+        }catch(Exeption $exeption){
+            echo $exeption->getMessage();
+        }
+    }
 }
 ?>

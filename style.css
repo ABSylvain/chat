@@ -3,6 +3,7 @@ body {
     height: 100vh;
     padding: 0;
     margin: 0;
+    background-image: url('8297629214_0451446cc5_o.png');
     display: flex;
     flex-direction: column;
     justify-content: center;
