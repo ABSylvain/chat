@@ -1,14 +1,3 @@
-////////////////////// Chargez XMLHttpRequest //////////////
-/*
-let xhr;
-*/
-function xhrInit(xhr) {
-    window.onload = xhrXml;
-
-    function xhrXml() {
-        xhr = new XMLHttpRequest();
-    }
-};
 ///////////////////// Envoie de requette ajax ///////////////
 /*let objetSend = {
     'key1': value1,
@@ -26,7 +15,7 @@ function sendAjax(filePhp, stringSend) {
         } else { console.log('') }
     }
     xhr.open("POST", filePhp, true);
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); //PHP///* header("Content-Type: text/plain"); */ 
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.send(stringSend);
 };
 ///////////////////// Requete de demande ajax /////////////////

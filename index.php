@@ -148,10 +148,12 @@
                         // ... ici on boucle sur chaque element du tableau ...
                         for(let i =0; i < ancienMax; i++){
                             // ... tous sa c'est de l'aff ...
+                            let article = document.createElement('article');
                             let h4 = document.createElement('h4');
                             let p = document.createElement('p');
-                            h4 = div.appendChild(h4);
-                            p = div.appendChild(p);
+                            h4 = article.appendChild(h4);
+                            p = article.appendChild(p);
+                            article = div.appendChild(article);
                             // ici messdb[i = 1,2,3,ect] pour chaque iteration du for,
                             // donc -> message1 -> message2 -> ect 
                             // et le 2em crochet cible notre column de notre tableau.
