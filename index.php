@@ -54,7 +54,9 @@
             getPseudo();
         }
     }
-    getPseudo();
+    if(pseudo == ""){
+        getPseudo();
+    }
     request();
     // On retire les parametres par default des button.
     btnMessage.addEventListener('click', function(e) {
