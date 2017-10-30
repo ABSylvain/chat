@@ -54,6 +54,7 @@
             getPseudo();
         }
     }
+    getPseudo();
     if(pseudo == ""){
         getPseudo();
     }
